@@ -32,6 +32,10 @@ li {
   min-height: 100vh;
 }
 
+.dark a {
+  color: rgb(203, 203, 203);
+}
+
 .link {
   color: rgb(187, 46, 31);
   text-decoration: none;
@@ -107,7 +111,7 @@ li {
 }
 
 .active {
-  color: rgb(187, 46, 31)
+  color: rgb(187, 46, 31) !important;
 }
 
 .btn-clear {
