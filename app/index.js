@@ -3,9 +3,10 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Loading from "./components/Loading";
 import Nav from "./components/Nav";
-import Posts from "./components/Posts";
+import MainPosts from "./components/MainPosts";
 import { ThemeProvider } from "./contexts/theme";
 import "./index.css";
+import User from "./components/User";
 
 class App extends React.Component {
   state = {
@@ -29,12 +30,17 @@ class App extends React.Component {
                   <Route
                     exact
                     path="/"
-                    render={(props) => <Posts {...props} postType={"top"} />}
+                    render={(props) => <MainPosts {...props} postType={"top"} />}
                   />
                   <Route
                     exact
                     path="/new"
-                    render={(props) => <Posts {...props} postType={"new"} />}
+                    render={(props) => <MainPosts {...props} postType={"new"} />}
+                  />
+                  <Route
+                    exact
+                    path="/user"
+                    component = {User}
                   />
                   <Route render={() => <h1>404</h1>} />
                 </Switch>

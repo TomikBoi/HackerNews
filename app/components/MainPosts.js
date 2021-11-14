@@ -3,8 +3,9 @@ import { fetchMainPosts } from "../utils/api";
 import Loading from "./Loading";
 import Timestamp from "./Timestamp";
 import { ThemeConsumer } from "../contexts/theme";
+import { Link } from "react-router-dom";
 
-export default class Posts extends React.Component {
+export default class MainPosts extends React.Component {
   state = {
     postType: null,
     isLoading: true,
@@ -64,7 +65,10 @@ export default class Posts extends React.Component {
               </a>
               <div className={`meta-info-${theme}`}>
                 <span>
-                  by <a href={`/user?id=${item.by}`}>{item.by}</a>
+                  by <Link to={{
+                    pathname: '/user',
+                    search: `?id=${item.by}`
+                  }}>{item.by}</Link>
                 </span>
                 <span>
                   on <Timestamp timestamp={item.time} />
