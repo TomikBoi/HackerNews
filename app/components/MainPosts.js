@@ -1,9 +1,8 @@
 import React from "react";
 import { fetchMainPosts } from "../utils/api";
+import { PostList } from "./PostList";
 import Loading from "./Loading";
-import Timestamp from "./Timestamp";
-import { ThemeConsumer } from "../contexts/theme";
-import { Link } from "react-router-dom";
+
 
 export default class MainPosts extends React.Component {
   state = {
@@ -54,35 +53,6 @@ export default class MainPosts extends React.Component {
     if (error) {
       return <p className="center-text error">{error}</p>;
     }
-    return (
-      <ThemeConsumer>
-      {({ theme}) => (
-        <ul>
-          {posts.map((item) => (
-            <li key={item.id} className="post">
-              <a className="link" href={item.url}>
-                {item.title}
-              </a>
-              <div className={`meta-info-${theme}`}>
-                <span>
-                  by <Link to={{
-                    pathname: '/user',
-                    search: `?id=${item.by}`
-                  }}>{item.by}</Link>
-                </span>
-                <span>
-                  on <Timestamp timestamp={item.time} />
-                </span>
-                <span>
-                  with <a href={`post?id=${item.id}`}>{item.descendants}</a>{" "}
-                  comments
-                </span>
-              </div>
-            </li>
-          ))}
-        </ul>
-        )}
-      </ThemeConsumer>
-    );
+    return <PostList posts={posts} />;
   }
 }

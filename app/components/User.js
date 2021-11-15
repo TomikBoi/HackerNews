@@ -3,7 +3,7 @@ import { fetchPosts, fetchUser } from "../utils/api";
 import Loading from "./Loading";
 import queryString from "query-string";
 import Timestamp from "./Timestamp";
-import { Link } from "react-router-dom";
+import { PostList } from "./PostList";
 
 export default class UserProfile extends React.Component {
   state = {
@@ -27,7 +27,7 @@ export default class UserProfile extends React.Component {
         created: user.created,
         karma: user.karma,
         about: user.about,
-        submitted: user.submitted.slice(0, 10),
+        submitted: user.submitted.slice(0, 100),
         isLoadingData: false,
         error: null,
       });
@@ -81,39 +81,11 @@ export default class UserProfile extends React.Component {
           <span>
             has <b>{karma}</b> karma
           </span>
-          <p className='text-black' dangerouslySetInnerHTML={createMarkup()}></p>
         </div>
+        <p dangerouslySetInnerHTML={createMarkup()}></p>
         <div>
           <h2>Posts</h2>
-          <ul>
-            {posts.map((item) => (
-              <li key={item.id} className="post">
-                <a className="link" href={item.url}>
-                  {item.title}
-                </a>
-                <div className={`meta-info-light`}>
-                  <span>
-                    by{" "}
-                    <Link
-                      to={{
-                        pathname: "/user",
-                        search: `?id=${item.by}`,
-                      }}
-                    >
-                      {item.by}
-                    </Link>
-                  </span>
-                  <span>
-                    on <Timestamp timestamp={item.time} />
-                  </span>
-                  <span>
-                    with <a href={`post?id=${item.id}`}>{item.descendants}</a>{" "}
-                    comments
-                  </span>
-                </div>
-              </li>
-            ))}
-          </ul>
+          {isLoadingPosts === true ? <Loading text="Fetching Users Posts" /> : <PostList posts={posts} />}
         </div>
       </React.Fragment>
     );

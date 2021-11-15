@@ -5,8 +5,10 @@ import Loading from "./components/Loading";
 import Nav from "./components/Nav";
 import MainPosts from "./components/MainPosts";
 import { ThemeProvider } from "./contexts/theme";
-import "./index.css";
 import User from "./components/User";
+import Post from "./components/Post";
+import "./index.css";
+
 
 class App extends React.Component {
   state = {
@@ -41,6 +43,11 @@ class App extends React.Component {
                     exact
                     path="/user"
                     component = {User}
+                  />
+                  <Route
+                    exact
+                    path="/post"
+                    component = {Post}
                   />
                   <Route render={() => <h1>404</h1>} />
                 </Switch>
