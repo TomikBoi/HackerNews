@@ -4,6 +4,7 @@ import queryString from "query-string";
 import { Link } from "react-router-dom";
 import Timestamp from "./Timestamp";
 import Loading from "./Loading";
+import {ThemeConsumer} from "../contexts/theme"
 
 export default class Post extends React.Component {
   state = {
@@ -42,6 +43,8 @@ export default class Post extends React.Component {
       return <Loading text="Fetching Post" />;
     }
     return (
+      <ThemeConsumer>
+      {({ theme }) => (
       <React.Fragment>
         <h1 className="header">
           <Link
@@ -54,7 +57,7 @@ export default class Post extends React.Component {
             {post.title}
           </Link>
         </h1>
-        <div className="meta-info-light">
+        <div className={`meta-info-${theme}`}>
           <span>
             by{" "}
             <Link
@@ -85,7 +88,7 @@ export default class Post extends React.Component {
         <p dangerouslySetInnerHTML={createMarkup()}></p>
         {comments.map((comment) => (
           <div className="comment" key={comment.id}>
-            <div className="meta-info-light">
+            <div className={`meta-info-${theme}`}>
               <span>
                 by{" "}
                 <Link
@@ -105,6 +108,8 @@ export default class Post extends React.Component {
           </div>
         ))}
       </React.Fragment>
-    );
+      )}
+    </ThemeConsumer>
+    )  
   }
 }
